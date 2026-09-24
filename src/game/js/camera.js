@@ -1,0 +1,1 @@
+// Câmera que segue o jogador com suavização e limites do mundo.

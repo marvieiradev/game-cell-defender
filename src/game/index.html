@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Cell Defender</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/ui.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game"></canvas>
+
+      <!-- HUD -->
+      <div id="hud" class="hud">
+        <div class="hud-top">
+          <div class="hud-chip crystal">
+            <span class="ico">⚡</span><span id="hud-crystals">0</span>
+          </div>
+          <div class="hud-chip">Invasão <b id="hud-wave">1</b></div>
+          <div class="hud-chip" id="hud-time">00:00</div>
+          <div class="hud-spacer"></div>
+          <button class="icon-btn" id="btn-pause" aria-label="Pausar">
+            ❚❚
+          </button>
+        </div>
+
+        <div class="hud-bars">
+          <div class="bar bar-hp">
+            <div class="bar-fill" id="bar-player"></div>
+            <span class="bar-label">Célula <i id="txt-player">100/100</i></span>
+          </div>
+          <div class="bar bar-core">
+            <div class="bar-fill" id="bar-core"></div>
+            <span class="bar-label"
+              >Núcleo Celular <i id="txt-core">1000/1000</i></span
+            >
+          </div>
+        </div>
+
+        <div class="hud-bottom">
+          <button class="build-btn" id="btn-build">
+            <span class="ico">⬡</span> Organelos
+          </button>
+        </div>
+      </div>
+
+      <!-- Joystick -->
+      <div id="joystick" class="joystick hidden">
+        <div class="joystick-base"></div>
+        <div class="joystick-knob"></div>
+      </div>
+
+      <!-- Modo de posicionamento -->
+      <div id="place-bar" class="place-bar hidden">
+        <span id="place-text">Escolha um local na célula</span>
+        <button class="ghost-btn" id="btn-place-cancel">Cancelar</button>
+      </div>
+
+      <!-- Menu de organelos -->
+      <div id="build-menu" class="panel hidden">
+        <div class="panel-head">
+          <h2>Organelos</h2>
+          <button class="icon-btn" id="btn-build-close">✕</button>
+        </div>
+        <div class="card-list" id="build-list"></div>
+      </div>
+
+      <!-- Painel do organelo -->
+      <div id="building-panel" class="panel small hidden">
+        <div class="panel-head">
+          <h2 id="bp-name">Organelo</h2>
+          <button class="icon-btn" id="btn-bp-close">✕</button>
+        </div>
+        <div class="panel-body" id="bp-body"></div>
+        <div class="panel-foot">
+          <button class="primary-btn" id="btn-upgrade">Evoluir</button>
+        </div>
+      </div>
+
+      <!-- Overlays -->
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-card">
+          <h1 id="ov-title">Cell Defender</h1>
+          <p id="ov-text"></p>
+          <div class="records" id="ov-records"></div>
+          <button class="primary-btn big" id="btn-overlay">Jogar</button>
+          <button class="ghost-btn" id="btn-sound">Som: ligado</button>
+        </div>
+      </div>
+
+      <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

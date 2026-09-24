@@ -1,0 +1,1 @@
+// Persistência simples em LocalStorage (recordes + configurações).

@@ -1,0 +1,1 @@
+// Ponto de entrada: cria o jogo, mostra o menu inicial e inicia o loop.

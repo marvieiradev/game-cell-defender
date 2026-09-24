@@ -1,0 +1,1 @@
+// Camada de interface DOM: HUD, menus e overlays.

@@ -1,0 +1,1 @@
+// Sistema de organelos: registro de tipos, custos e evolução visual.

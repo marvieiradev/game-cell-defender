@@ -1,0 +1,1 @@
+// Mitocôndria: produz Energia automaticamente e fica mais potente a cada evolução.

@@ -1,0 +1,1 @@
+// Gerenciador de invasões: spawn infinito com escalonamento e super invasores.

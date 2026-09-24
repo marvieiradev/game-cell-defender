@@ -1,0 +1,1 @@
+// Recursos do jogo: energia é a moeda principal da célula.

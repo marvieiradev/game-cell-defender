@@ -1,0 +1,1 @@
+// Núcleo do jogo: estado, loop, atualização e renderização.

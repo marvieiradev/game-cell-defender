@@ -1,0 +1,1 @@
+// Citoplasma, grade invisível de construção e desenho do ambiente celular.

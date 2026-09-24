@@ -1,0 +1,1 @@
+// Entrada unificada: teclado (WASD/setas), joystick virtual e toques/cliques.

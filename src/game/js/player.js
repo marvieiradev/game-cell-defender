@@ -1,0 +1,1 @@
+// Célula defensora: movimento em 8 direções, ataque automático e atributos
