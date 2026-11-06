@@ -2,6 +2,7 @@
 // derivados exclusivamente dos organelos construídos.
 
 import { clamp, dist2, TAU } from "./utils.js";
+import { drawConfiguredSprite } from "./sprites.js";
 
 const BASE = {
   maxHp: 100,
@@ -141,23 +142,31 @@ export class Player {
 
     const flash = this.invuln > 0 && Math.floor(time * 20) % 2 === 0;
 
-    // Capa
-    ctx.fillStyle = flash ? "#ffffff" : "#2f6fbf";
-    ctx.beginPath();
-    ctx.ellipse(-this.dirX * 5, 2 + bob, 11, 13, 0, 0, TAU);
-    ctx.fill();
+    const imageDrawn = drawConfiguredSprite(ctx, "player", null, {
+      offsetY: bob - 3,
+      flipX: this.dirX < -0.05,
+      flash,
+    });
 
-    // Corpo
-    ctx.fillStyle = flash ? "#ffffff" : "#dfe9fb";
-    ctx.beginPath();
-    ctx.arc(0, bob, 9, 0, TAU);
-    ctx.fill();
+    if (!imageDrawn) {
+      // Capa
+      ctx.fillStyle = flash ? "#ffffff" : "#2f6fbf";
+      ctx.beginPath();
+      ctx.ellipse(-this.dirX * 5, 2 + bob, 11, 13, 0, 0, TAU);
+      ctx.fill();
 
-    // Visor / direção
-    ctx.fillStyle = "#1a2740";
-    ctx.beginPath();
-    ctx.arc(this.dirX * 4, bob + this.dirY * 3, 3.4, 0, TAU);
-    ctx.fill();
+      // Corpo
+      ctx.fillStyle = flash ? "#ffffff" : "#dfe9fb";
+      ctx.beginPath();
+      ctx.arc(0, bob, 9, 0, TAU);
+      ctx.fill();
+
+      // Visor / direção
+      ctx.fillStyle = "#1a2740";
+      ctx.beginPath();
+      ctx.arc(this.dirX * 4, bob + this.dirY * 3, 3.4, 0, TAU);
+      ctx.fill();
+    }
 
     if (this.lastDodge > 0) {
       ctx.fillStyle = `rgba(200, 230, 255, ${this.lastDodge})`;

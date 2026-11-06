@@ -3,8 +3,10 @@
 import { Game } from "./game.js";
 import { Save } from "./save.js";
 import { formatTime } from "./utils.js";
+import { preloadSprites } from "./sprites.js";
 
 const canvas = document.getElementById("game");
+await preloadSprites();
 const game = new Game(canvas);
 window.game = game; // útil para depuração
 

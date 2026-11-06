@@ -3,6 +3,7 @@
 
 import { CELL } from "./map.js";
 import { TAU } from "./utils.js";
+import { drawConfiguredSprite } from "./sprites.js";
 
 /** Custo exponencial: 5, 10, 20, 35, 55, 80, ... */
 export function levelCost(level, mult = 1) {
@@ -64,7 +65,11 @@ export class Building {
     ctx.save();
     ctx.translate(this.x, this.y);
     drawPlatform(ctx, this.level);
-    this.def.draw(ctx, this, time);
+    const imageDrawn = drawConfiguredSprite(ctx, "organelle", this.type, {
+      scale: 1 + Math.min(this.level - 1, 8) * 0.035,
+      rotation: this.type === "tower" ? this.angle : 0,
+    });
+    if (!imageDrawn) this.def.draw(ctx, this, time);
     drawFlags(ctx, this.level, time);
     ctx.restore();
     drawLevelBadge(ctx, this);

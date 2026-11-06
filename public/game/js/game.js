@@ -12,6 +12,7 @@ import { Save } from "./save.js";
 import { Building, getBuildingDef, allBuildingDefs } from "./building.js";
 import { createEnemy, resetEnemy, updateEnemy, drawEnemy } from "./enemy.js";
 import { Pool, TAU, clamp, dist2, formatTime } from "./utils.js";
+import { drawConfiguredSprite } from "./sprites.js";
 import "./mine.js";
 import "./tower.js";
 
@@ -561,34 +562,41 @@ export class Game {
     ctx.ellipse(0, 30, 54, 20, 0, 0, TAU);
     ctx.fill();
 
-    // Núcleo celular
     const nr = 46 * pulse;
-    ctx.fillStyle = ratio > 0.35 ? "#a78bfa" : "#ef4444";
-    ctx.beginPath();
-    ctx.arc(0, 0, nr, 0, TAU);
-    ctx.fill();
+    const imageDrawn = drawConfiguredSprite(ctx, "core", null, {
+      scale: pulse,
+      alpha: ratio > 0.35 ? 1 : 0.72 + Math.sin(c.pulse * 8) * 0.18,
+    });
 
-    // Membrana nuclear
-    ctx.strokeStyle = "rgba(230, 220, 255, 0.55)";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(0, 0, nr, 0, TAU);
-    ctx.stroke();
-
-    // Cromatina interna
-    ctx.fillStyle = "rgba(255,255,255,0.22)";
-    for (let i = 0; i < 5; i++) {
-      const a = c.pulse * 0.4 + (i / 5) * TAU;
+    if (!imageDrawn) {
+      // Núcleo celular
+      ctx.fillStyle = ratio > 0.35 ? "#a78bfa" : "#ef4444";
       ctx.beginPath();
-      ctx.ellipse(Math.cos(a) * nr * 0.4, Math.sin(a) * nr * 0.35, 9, 6, a, 0, TAU);
+      ctx.arc(0, 0, nr, 0, TAU);
+      ctx.fill();
+
+      // Membrana nuclear
+      ctx.strokeStyle = "rgba(230, 220, 255, 0.55)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, 0, nr, 0, TAU);
+      ctx.stroke();
+
+      // Cromatina interna
+      ctx.fillStyle = "rgba(255,255,255,0.22)";
+      for (let i = 0; i < 5; i++) {
+        const a = c.pulse * 0.4 + (i / 5) * TAU;
+        ctx.beginPath();
+        ctx.ellipse(Math.cos(a) * nr * 0.4, Math.sin(a) * nr * 0.35, 9, 6, a, 0, TAU);
+        ctx.fill();
+      }
+
+      // Nucléolo
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.beginPath();
+      ctx.arc(-6, -6, 12, 0, TAU);
       ctx.fill();
     }
-
-    // Nucléolo
-    ctx.fillStyle = "rgba(255,255,255,0.4)";
-    ctx.beginPath();
-    ctx.arc(-6, -6, 12, 0, TAU);
-    ctx.fill();
 
     // Anel de vida
     ctx.strokeStyle = "rgba(20,30,50,0.8)";

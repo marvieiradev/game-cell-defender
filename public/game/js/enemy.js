@@ -1,6 +1,7 @@
 // Invasores: tipos configuráveis, IA simples (perseguir a célula defensora ou o Núcleo Celular).
 
 import { TAU, dist, dist2 } from "./utils.js";
+import { drawConfiguredSprite } from "./sprites.js";
 
 export const ENEMY_TYPES = {
   grunt: {
@@ -163,28 +164,35 @@ export function drawEnemy(ctx, e, time) {
   ctx.fill();
 
   const wobble = Math.sin(time * 6 + e.phase) * (e.radius * 0.08);
-  ctx.fillStyle = e.hitFlash > 0 ? "#ffffff" : e.def.color;
-  ctx.beginPath();
-  ctx.ellipse(0, wobble, e.radius, e.radius * 1.05, 0, 0, TAU);
-  ctx.fill();
+  const imageDrawn = drawConfiguredSprite(ctx, "enemy", e.def.id, {
+    offsetY: wobble,
+    flash: e.hitFlash > 0,
+  });
 
-  // Olhos
-  ctx.fillStyle = e.def.accent;
-  const eo = e.radius * 0.35;
-  ctx.beginPath();
-  ctx.arc(-eo, wobble - 2, e.radius * 0.16, 0, TAU);
-  ctx.arc(eo, wobble - 2, e.radius * 0.16, 0, TAU);
-  ctx.fill();
-
-  if (e.isBoss) {
-    ctx.strokeStyle = "#fecaca";
-    ctx.lineWidth = 3;
+  if (!imageDrawn) {
+    ctx.fillStyle = e.hitFlash > 0 ? "#ffffff" : e.def.color;
     ctx.beginPath();
-    ctx.moveTo(-e.radius * 0.7, -e.radius * 0.8);
-    ctx.lineTo(-e.radius * 1.1, -e.radius * 1.5);
-    ctx.moveTo(e.radius * 0.7, -e.radius * 0.8);
-    ctx.lineTo(e.radius * 1.1, -e.radius * 1.5);
-    ctx.stroke();
+    ctx.ellipse(0, wobble, e.radius, e.radius * 1.05, 0, 0, TAU);
+    ctx.fill();
+
+    // Olhos
+    ctx.fillStyle = e.def.accent;
+    const eo = e.radius * 0.35;
+    ctx.beginPath();
+    ctx.arc(-eo, wobble - 2, e.radius * 0.16, 0, TAU);
+    ctx.arc(eo, wobble - 2, e.radius * 0.16, 0, TAU);
+    ctx.fill();
+
+    if (e.isBoss) {
+      ctx.strokeStyle = "#fecaca";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-e.radius * 0.7, -e.radius * 0.8);
+      ctx.lineTo(-e.radius * 1.1, -e.radius * 1.5);
+      ctx.moveTo(e.radius * 0.7, -e.radius * 0.8);
+      ctx.lineTo(e.radius * 1.1, -e.radius * 1.5);
+      ctx.stroke();
+    }
   }
 
   // Barra de vida
